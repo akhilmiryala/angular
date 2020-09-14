@@ -30,8 +30,8 @@ Vagrant.configure(2) do |config|
     end
 
     # Port expose for planetlearning1 server (5984:2200 = CouchDB 3000:3000 = App)
-    planetlearning1.vm.network "forwarded_port", guest: 5984, host: 5201, auto_correct: true
-    planetlearning1.vm.network "forwarded_port", guest: 4200, host: 5001, auto_correct: true    
+    planetlearning1.vm.network "forwarded_port", guest: 5984, host: 5200, auto_correct: true
+    planetlearning1.vm.network "forwarded_port", guest: 4200, host: 5000, auto_correct: true
     planetlearning1.vm.network "forwarded_port", guest: 22, host: 5222, host_ip: "0.0.0.0", id: "ssh", auto_correct: true
 
     # Prevent TTY Errors (copied from laravel/homestead: "homestead.rb" file)... By default this is "bash -l".
