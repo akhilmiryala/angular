@@ -14,30 +14,30 @@ Vagrant.configure(2) do |config|
   BOX = "treehouses/buster64"
   BOX_VERSION = "0.13.3"
 
-  # planetlearingelopment VM
-  config.vm.define "planetlearing" do |planetlearing|
-    planetlearing.vm.box = BOX
-    planetlearing.vm.box_version = BOX_VERSION
+  # planetlearning1elopment VM
+  config.vm.define "planetlearning1" do |planetlearning1|
+    planetlearning1.vm.box = BOX
+    planetlearning1.vm.box_version = BOX_VERSION
 
-    planetlearing.vm.hostname = "planetlearing"
+    planetlearning1.vm.hostname = "planetlearning1"
 
-    planetlearing.vm.provider "virtualbox" do |vb|
-      vb.name = "planetlearing"
+    planetlearning1.vm.provider "virtualbox" do |vb|
+      vb.name = "planetlearning1"
     end
 
-    planetlearing.vm.provider "virtualbox" do |vb|
+    planetlearning1.vm.provider "virtualbox" do |vb|
       vb.memory = "1111"
     end
 
-    # Port expose for planetlearing server (5984:2200 = CouchDB 3000:3000 = App)
-    planetlearing.vm.network "forwarded_port", guest: 5984, host: 5200, auto_correct: true
-    planetlearing.vm.network "forwarded_port", guest: 4200, host: 5000, auto_correct: true    
-    planetlearing.vm.network "forwarded_port", guest: 22, host: 5222, host_ip: "0.0.0.0", id: "ssh", auto_correct: true
+    # Port expose for planetlearning1 server (5984:2200 = CouchDB 3000:3000 = App)
+    planetlearning1.vm.network "forwarded_port", guest: 5984, host: 5201, auto_correct: true
+    planetlearning1.vm.network "forwarded_port", guest: 4200, host: 5001, auto_correct: true    
+    planetlearning1.vm.network "forwarded_port", guest: 22, host: 5222, host_ip: "0.0.0.0", id: "ssh", auto_correct: true
 
     # Prevent TTY Errors (copied from laravel/homestead: "homestead.rb" file)... By default this is "bash -l".
-    planetlearing.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+    planetlearning1.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-    planetlearing.vm.provision "shell", inline: <<-SHELL
+    planetlearning1.vm.provision "shell", inline: <<-SHELL
       # Add CouchDB Docker
       sudo docker run -d -p 5984:5984 --name planetlearning \
         -v /srv/planetlearning/conf:/opt/couchdb/etc/local.d \
@@ -78,7 +78,7 @@ Vagrant.configure(2) do |config|
     SHELL
 
     # Run binding on each startup make sure the mount is available on VM restart
-    planetlearing.vm.provision "shell", run: "always", inline: <<-SHELL
+    planetlearning1.vm.provision "shell", run: "always", inline: <<-SHELL
       if [ $(docker inspect -f '{{.State.Running}}' planetlearning) = "false" ]; then
         docker start planetlearning
         while ! curl -X GET http://127.0.0.1:5984/_all_dbs ; do sleep 1; done
