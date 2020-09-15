@@ -10,10 +10,10 @@ export class AppComponent {
 
   title = 'week1';
 
-  data: [ {
+  data: Array<{
     name: string,
     message: string
-  } ];
+  }> = [];
 
   constructor(
     private http: HttpClient
