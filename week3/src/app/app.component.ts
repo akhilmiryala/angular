@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  title = 'week2';
+  title = 'week3';
   loggedIn: boolean = false;
   notifications = [];
 
