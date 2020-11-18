@@ -1,9 +1,13 @@
 <mat-toolbar class="mat-elevation-z6 mat-primary">
   <img src="assets/cropped-ole-ico-logo-32x32.png"/>
-  <span>Planet Learning</span>
+  <span>Planet Learning </span>
 
   <!-- START: MENU SECTION -->
   <!-- YOUR MENU GOES HERE -->
+  <div class="topnav">
+    <a class="active "href="https://github.com/planetlearning">GitHub </a>
+    <a href="localhost:3100">Planet Learning </a>
+  </div>
   <div class="spacer"></div>
   <a target="_blank" rel="noopener" href="https://github.com/planetlearning">
     <svg height="32" viewBox="0 0 16 16" width="32" aria-hidden="true">
@@ -17,17 +21,19 @@
 
   <!-- START: CONTENT SECTION -->
   <!-- YOUR CONTENT BODY GOES HERE -->
-  <div class="card-container">
+  <div class="card-container" *ngIf="!loggedIn">
       <div class="form-container">
-        <form validate="false">
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" validate="false">
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
-            <input matInput>
+            <input matInput name="username" ngmodel>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput>
-          </mat-form-field> 
+            <input name="password" ngmodel type="password" matInput>
+          </mat-form-field>
+          <br>
+          <button (ngSubmit)="login(loginForm)" type="submit" mat-raised-button color="primary">Submit</button> 
         </form>
       </div>
   </div>

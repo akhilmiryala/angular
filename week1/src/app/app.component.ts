@@ -21,7 +21,7 @@ export class AppComponent {
 
   login(form) {
     const httpOpts = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-    this.http.post('http://localhost:5200/_session', { }, httpOpts)
+    this.http.post('http://localhost:5200/_session', {name: form.value.username,password: form.value.password}, httpOpts)
       .subscribe();
   }
 }
